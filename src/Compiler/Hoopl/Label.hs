@@ -1,5 +1,6 @@
 {-# LANGUAGE CPP, TypeFamilies #-}
 {-# LANGUAGE DeriveFunctor, DeriveFoldable, DeriveTraversable #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 #if __GLASGOW_HASKELL__ >= 701
 {-# LANGUAGE Safe #-}
 #endif
@@ -18,6 +19,7 @@ where
 
 import Compiler.Hoopl.Collections
 import Compiler.Hoopl.Unique
+import Data.Data (Data (..), Typeable)
 #if !MIN_VERSION_base(4,8,0)
 import Data.Traversable (Traversable)
 import Data.Foldable (Foldable)
@@ -28,7 +30,7 @@ import Data.Foldable (Foldable)
 -----------------------------------------------------------------------------
 
 newtype Label = Label { lblToUnique :: Unique }
-  deriving (Eq, Ord)
+  deriving (Eq, Ord, Data, Typeable)
 
 uniqueToLbl :: Unique -> Label
 uniqueToLbl = Label
